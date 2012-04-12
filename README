@@ -1,0 +1,16 @@
+IRKeyboardEmu: 	Apple IR Remote Emulation
+What:		The title pretty much says it all.
+Why:		To simulate the effects of an Apple Remote on Mac OS X
+Who:		Brandon Holland (bholland@brandon-holland.com)
+		Evan Schoenberg (@evands)
+Where:		http://brandon-holland.com/software/irkeyboardemu
+Version:	0.5
+
+Install:
+sudo chown -R root:wheel IRKeyboardEmu.kext
+sudo chmod -R 755 IRKeyboardEmu.kext
+sudo kextload IRKeyboardEmu.kext
+
+Usage:
+sudo sysctl -w kern.sendIR=[0 - 17]
+

@@ -1,0 +1,329 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C11298C215366444008BB88F /* IRKeyboardEmu-Leopard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C11298B615366443008BB88F /* IRKeyboardEmu-Leopard.cpp */; };
+		C11298C315366444008BB88F /* IRKeyboardEmu-Tiger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C11298B715366443008BB88F /* IRKeyboardEmu-Tiger.cpp */; };
+		C11298C415366444008BB88F /* IRKeyboardEmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C11298B815366443008BB88F /* IRKeyboardEmu.cpp */; };
+		C11298C515366444008BB88F /* IRKeyboardEmu.h in Headers */ = {isa = PBXBuildFile; fileRef = C11298B915366443008BB88F /* IRKeyboardEmu.h */; };
+		C11298C615366444008BB88F /* ReportDescriptor-Leopard.h in Headers */ = {isa = PBXBuildFile; fileRef = C11298BA15366443008BB88F /* ReportDescriptor-Leopard.h */; };
+		C11298C715366444008BB88F /* ReportDescriptor-Tiger.h in Headers */ = {isa = PBXBuildFile; fileRef = C11298BB15366443008BB88F /* ReportDescriptor-Tiger.h */; };
+		C11298C815366444008BB88F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C11298BE15366443008BB88F /* InfoPlist.strings */; };
+		C11298CC1536648F008BB88F /* Headers.pch in Headers */ = {isa = PBXBuildFile; fileRef = C11298CB1536648F008BB88F /* Headers.pch */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C112989B15366259008BB88F /* IRKeyboardEmu.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IRKeyboardEmu.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		C112989F15366259008BB88F /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
+		C11298B615366443008BB88F /* IRKeyboardEmu-Leopard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "IRKeyboardEmu-Leopard.cpp"; sourceTree = "<group>"; };
+		C11298B715366443008BB88F /* IRKeyboardEmu-Tiger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "IRKeyboardEmu-Tiger.cpp"; sourceTree = "<group>"; };
+		C11298B815366443008BB88F /* IRKeyboardEmu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IRKeyboardEmu.cpp; sourceTree = "<group>"; };
+		C11298B915366443008BB88F /* IRKeyboardEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRKeyboardEmu.h; sourceTree = "<group>"; };
+		C11298BA15366443008BB88F /* ReportDescriptor-Leopard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReportDescriptor-Leopard.h"; sourceTree = "<group>"; };
+		C11298BB15366443008BB88F /* ReportDescriptor-Tiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReportDescriptor-Tiger.h"; sourceTree = "<group>"; };
+		C11298BF15366443008BB88F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C11298C015366443008BB88F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C11298CB1536648F008BB88F /* Headers.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headers.pch; sourceTree = "<group>"; };
+		C11298D1153666F2008BB88F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C112989615366259008BB88F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C112988E15366259008BB88F = {
+			isa = PBXGroup;
+			children = (
+				C11298B315366443008BB88F /* Source */,
+				C112989D15366259008BB88F /* Frameworks */,
+				C112989C15366259008BB88F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C112989C15366259008BB88F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C112989B15366259008BB88F /* IRKeyboardEmu.kext */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C112989D15366259008BB88F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C112989F15366259008BB88F /* Kernel.framework */,
+				C11298D1153666F2008BB88F /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C11298B315366443008BB88F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C11298B415366443008BB88F /* Code */,
+				C11298BC15366443008BB88F /* Resources */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		C11298B415366443008BB88F /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				C11298B615366443008BB88F /* IRKeyboardEmu-Leopard.cpp */,
+				C11298B715366443008BB88F /* IRKeyboardEmu-Tiger.cpp */,
+				C11298B815366443008BB88F /* IRKeyboardEmu.cpp */,
+				C11298B915366443008BB88F /* IRKeyboardEmu.h */,
+				C11298BA15366443008BB88F /* ReportDescriptor-Leopard.h */,
+				C11298BB15366443008BB88F /* ReportDescriptor-Tiger.h */,
+				C11298CA1536648F008BB88F /* Support */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		C11298BC15366443008BB88F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C11298BD15366443008BB88F /* Text */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C11298BD15366443008BB88F /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				C11298BE15366443008BB88F /* InfoPlist.strings */,
+				C11298C015366443008BB88F /* Info.plist */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		C11298CA1536648F008BB88F /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				C11298CB1536648F008BB88F /* Headers.pch */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C112989715366259008BB88F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C11298C515366444008BB88F /* IRKeyboardEmu.h in Headers */,
+				C11298C615366444008BB88F /* ReportDescriptor-Leopard.h in Headers */,
+				C11298C715366444008BB88F /* ReportDescriptor-Tiger.h in Headers */,
+				C11298CC1536648F008BB88F /* Headers.pch in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C112989A15366259008BB88F /* IRKeyboardEmu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C11298AC1536625A008BB88F /* Build configuration list for PBXNativeTarget "IRKeyboardEmu" */;
+			buildPhases = (
+				C112989515366259008BB88F /* Sources */,
+				C112989615366259008BB88F /* Frameworks */,
+				C112989715366259008BB88F /* Headers */,
+				C112989815366259008BB88F /* Resources */,
+				C112989915366259008BB88F /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IRKeyboardEmu;
+			productName = IRKeyboardEmu;
+			productReference = C112989B15366259008BB88F /* IRKeyboardEmu.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C112989015366259008BB88F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = C112989315366259008BB88F /* Build configuration list for PBXProject "IRKeyboardEmu" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				English,
+			);
+			mainGroup = C112988E15366259008BB88F;
+			productRefGroup = C112989C15366259008BB88F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C112989A15366259008BB88F /* IRKeyboardEmu */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C112989815366259008BB88F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C11298C815366444008BB88F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		C112989915366259008BB88F /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C112989515366259008BB88F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C11298C215366444008BB88F /* IRKeyboardEmu-Leopard.cpp in Sources */,
+				C11298C315366444008BB88F /* IRKeyboardEmu-Tiger.cpp in Sources */,
+				C11298C415366444008BB88F /* IRKeyboardEmu.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C11298BE15366443008BB88F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C11298BF15366443008BB88F /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C11298AA1536625A008BB88F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C11298AB1536625A008BB88F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C11298AD1536625A008BB88F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CURRENT_PROJECT_VERSION = 0.5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Source/Code/Support/Headers.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Source/Resources/Text/Info.plist;
+				MODULE_NAME = com.bholland.driver.IRKeyboardEmu;
+				MODULE_VERSION = 0.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		C11298AE1536625A008BB88F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CURRENT_PROJECT_VERSION = 0.5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Source/Code/Support/Headers.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Source/Resources/Text/Info.plist;
+				MODULE_NAME = com.bholland.driver.IRKeyboardEmu;
+				MODULE_VERSION = 0.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C112989315366259008BB88F /* Build configuration list for PBXProject "IRKeyboardEmu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C11298AA1536625A008BB88F /* Debug */,
+				C11298AB1536625A008BB88F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C11298AC1536625A008BB88F /* Build configuration list for PBXNativeTarget "IRKeyboardEmu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C11298AD1536625A008BB88F /* Debug */,
+				C11298AE1536625A008BB88F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C112989015366259008BB88F /* Project object */;
+}
