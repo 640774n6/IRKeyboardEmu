@@ -75,6 +75,9 @@ static int sysctl_sendIR SYSCTL_HANDLER_ARGS {
 	return error;
 }
 
+IOReturn IRKeyboardEmu::setProperties(OSObject *properties)
+{ return kIOReturnSuccess; }
+
 OSString * IRKeyboardEmu::newTransportString() const
 { return OSString::withCStringNoCopy("USB"); }
 
