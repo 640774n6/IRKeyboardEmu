@@ -46,7 +46,7 @@ static unsigned int keyvar = 1;
 IRKeyboardEmu *me;
 static bool isOnLeopardOrBetter = false;
 
-SYSCTL_PROC(_kern, OID_AUTO, sendIR, CTLTYPE_INT|CTLFLAG_RW, 
+SYSCTL_PROC(_kern, OID_AUTO, sendIR, CTLTYPE_INT|CTLFLAG_RW|CTLFLAG_ANYBODY,
 				&keyvar, 0, &sysctl_sendIR, "I", "");
 
 OSDefineMetaClassAndStructors(IRKeyboardEmu, IOHIDDevice)
