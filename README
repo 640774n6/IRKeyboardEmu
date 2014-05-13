@@ -1,8 +1,9 @@
 IRKeyboardEmu: 	Apple IR Remote Emulation
 What:		The title pretty much says it all.
 Why:		To simulate the effects of an Apple Remote on Mac OS X
-Who:		Brandon Holland (bholland@brandon-holland.com)
+Who:		Brandon Holland (bholland@brandon-holland.com, @640774n6)
 		Evan Schoenberg (@evands)
+		James Coleman (@GRMrGecko)
 Where:		http://brandon-holland.com/software/irkeyboardemu
 Version:	0.5
 
