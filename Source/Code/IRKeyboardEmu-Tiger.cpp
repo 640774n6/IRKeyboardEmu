@@ -9,6 +9,8 @@
 
 #include "IRKeyboardEmu.h"
 
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < 1040
+/* 10.4 or - */
 /*
  * Left, Right, Menu, and Play are determined to be up&down or held by the hardware remote.
  * There are therefore separate codes for up&down (which is sent together) and for the held version.
@@ -21,7 +23,7 @@
  * We're sending the 10.4 infrared codes.  Most applications are fine with that. Some are only
  * looking for the 10.5 codes when running on 10.5. That's no good :(
  */	
-void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
+void IRKeyboardEmu::issueFakeReport(int keyCode)
 {
 	IOMemoryDescriptor *mem;
 	char (*keyPress)[2];
@@ -47,7 +49,6 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 	};
 	
 	/* Menu-hold, pressed and released */
-#define MENU_PRESS_BITS 6
 	char menu_hold[MENU_PRESS_BITS][2] = //14_6_5_14_6_5_
 	{
 		/* Press */
@@ -139,6 +140,7 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 		{ 0x0B, 0x01 }, { 0x0A, 0x01 },
 		{ 0x05, 0x00 } 
 	};
+
 	char up_released[4][2] = //14_ 12_11_6_ 5_ * Fixed *
 	{
 		{ 0x0D, 0x00 },
@@ -148,12 +150,22 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 	
 	/* Create 'up', which is up_pressed followed by up_released */
 	char up[8][2];
-	for (int i = 0; i < 4; i++)
+
+    for (int i = 0; i < 4; i++)
+    {
 		for (int j = 0; j < 2; j++)
+        {
 			up[i][j] = up_pressed[i][j];
+        }
+    }
+
 	for (int i = 0; i < 4; i++)
+    {
 		for (int j = 0; j < 2; j++)
+        {
 			up[i+4][j] = up_released[i][j];
+        }
+    }
 	
 	char down_pressed[4][2] = //14_13_11_6_5_ * Fixed *
 	{
@@ -161,6 +173,7 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 		{ 0x0C, 0x01 }, { 0x0A, 0x02 },
 		{ 0x05, 0x00 }
 	};
+
 	char down_released[4][2] = 
 	{		
 		{ 0x0D, 0x00 },
@@ -170,12 +183,22 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 	
 	/* Create 'down', which is down_pressed followed by down_released */
 	char down[8][2];
+
 	for (int i = 0; i < 4; i++)
+    {
 		for (int j = 0; j < 2; j++)
+        {
 			down[i][j] = down_pressed[i][j];
+        }
+    }
+
 	for (int i = 0; i < 4; i++)
+    {
 		for (int j = 0; j < 2; j++)
+        {
 			down[i+4][j] = down_released[i][j];
+        }
+    }
 	
 	switch(keyCode)
 	{
@@ -183,26 +206,32 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 			keyPress = up;
 			bits = 8; 
 			break;
+
 		case PressedUp:
 			keyPress = up_pressed;
 			bits = 4;
 			break;
+
 		case ReleasedUp:
 			keyPress = up_released;
 			bits = 4;
 			break;
+
 		case DownKey:
 			keyPress = down; //Point to down command report
 			bits = 8;
 			break;
+
 		case PressedDown:
 			keyPress = down_pressed;
 			bits = 4;
 			break;
+
 		case ReleasedDown:
 			keyPress = down_released;
 			bits = 4;
 			break;
+
 		case MenuKey:
 			keyPress = menu; //Point to menu command report
 			break;
@@ -210,49 +239,62 @@ void IRKeyboardEmu::issueFakeReport_tiger(int keyCode)
 			keyPress = menu_hold;
 			bits = MENU_PRESS_BITS;
 			break;
+
 		case ReleasedMenu:
 			/* Don't need to do anything; PressedMenu did menu-held-pressed and menu-held-released */
 			keyPress = NULL; 
 			break;
+
 		case PlayKey:
 			keyPress = play; //Point to play command report
 			bits = 8;
 			break;
+
 		case RightKey:
 			keyPress = right; //Point to right command report
 			break;
+
 		case PressedRight:
 			keyPress = right_pressed;
 			bits = 5;
 			break;
+
 		case ReleasedRight:
 			keyPress = right_released;
 			bits = 5;			
 			break;
+
 		case LeftKey:
 			keyPress = left; //Point to left command report
 			break;
+
 		case PressedLeft:
 			keyPress = left_pressed;
 			bits = 5;
 			break;
+        
 		case ReleasedLeft:
 			keyPress = left_released;
 			bits = 5;			
 			break;
+
 		default:
 			keyPress = NULL; //Oops! Somehow we got an invalid option. Bail!
 			break;
 	}
 	
-	if(keyPress != NULL) //If everything went ok create Memory Descriptors
+	if (keyPress != NULL) //If everything went ok create Memory Descriptors
 	{
-		for(int i = 0; i < bits; i++)
+		for (int i = 0; i < bits; i++)
 		{
 			mem = IOMemoryDescriptor::withAddress(keyPress[i], sizeof(keyPress[i]), kIODirectionNone);
-			handleReport(mem); //Send command report to HID System
-			mem->release(); //Free memory
-		}
-		
+
+            if (mem != NULL)
+            {
+                handleReport(mem); //Send command report to HID System
+                mem->release(); //Free memory
+            }
+		}		
 	}
 }
+#endif /* __MAC_OS_X_VERSION_MIN_REQUIRED > 1040 */

@@ -23,6 +23,7 @@
  */
 
 #include "IRKeyboardEmu.h"
+
 #include <IOKit/hidsystem/IOHIDTypes.h>
 #include <IOKit/hidsystem/IOHIDParameter.h>
 #include <IOKit/IOLib.h>
@@ -31,6 +32,7 @@
 #include <IOKit/IOReturn.h>
 
 #include <mach/mach_types.h>
+
 #include <sys/systm.h>
 #include <sys/types.h>
 #include <sys/sysctl.h>
@@ -38,21 +40,19 @@
 #include "ReportDescriptor-Tiger.h"
 #include "ReportDescriptor-Leopard.h"
 
-#undef super
+#undef  super
 #define super IOHIDDevice
 
 static int sysctl_sendIR SYSCTL_HANDLER_ARGS;
 static unsigned int keyvar = 1;
-IRKeyboardEmu *me;
-static bool isOnLeopardOrBetter = false;
+IRKeyboardEmu *me = NULL;
 
 SYSCTL_PROC(_kern, OID_AUTO, sendIR, CTLTYPE_INT|CTLFLAG_RW|CTLFLAG_ANYBODY,
-				&keyvar, 0, &sysctl_sendIR, "I", "");
+            &keyvar, 0, &sysctl_sendIR, "I", "");
 
 OSDefineMetaClassAndStructors(IRKeyboardEmu, IOHIDDevice)
 
 // Fake Properties
-
 /*
  0 through 5: button down then button up immediately
  6 through 11: button down (or button-held in the case of Menu)
@@ -60,96 +60,120 @@ OSDefineMetaClassAndStructors(IRKeyboardEmu, IOHIDDevice)
  
  See IRKeyboardEmu.h for the enumeration.
  */
-static int sysctl_sendIR SYSCTL_HANDLER_ARGS {
-	int error;
-	error = sysctl_handle_int(oidp, oidp->oid_arg1, oidp->oid_arg2,  req);
+static int sysctl_sendIR SYSCTL_HANDLER_ARGS
+{
+	int error = sysctl_handle_int(oidp, oidp->oid_arg1, oidp->oid_arg2,  req);
+
 	if(keyvar > 17)
+    {
 		return 1;
-	if (!error && req->newptr) 
+    }
+
+	if ((error == 0) && (req->newptr != (user_addr_t)0))
 	{
-		if (isOnLeopardOrBetter)
-			me->issueFakeReport_leopard(keyvar);
-		else
-			me->issueFakeReport_tiger(keyvar);
+        me->issueFakeReport(keyvar);
 	}
+
 	return error;
 }
 
 IOReturn IRKeyboardEmu::setProperties(OSObject *properties)
-{ return kIOReturnSuccess; }
-
-OSString * IRKeyboardEmu::newTransportString() const
-{ return OSString::withCStringNoCopy("USB"); }
-
-OSString * IRKeyboardEmu::newManufacturerString() const
-{ return OSString::withCStringNoCopy("640774n6"); }
-
-OSString * IRKeyboardEmu::newProductString() const
-{ return OSString::withCStringNoCopy("IRKeyboardEmu"); }
-
-OSNumber * IRKeyboardEmu::newVendorIDNumber() const
-{ return OSNumber::withNumber(0x05AC, 16); } //Actual AppleIR VendorID 
-
-OSNumber * IRKeyboardEmu::newProductIDNumber() const
-{ return OSNumber::withNumber(0x8240, 16); } //Actual AppleIR ProductID
-
-OSNumber * IRKeyboardEmu::newPrimaryUsageNumber() const
-{ return OSNumber::withNumber(kHIDUsage_Csmr_ConsumerControl, 32); }
-
-OSNumber * IRKeyboardEmu::newPrimaryUsagePageNumber() const
-{ return OSNumber::withNumber(kHIDPage_Consumer, 32); }
-
-static bool preLeopardOS()
 {
-	int preLeopardOS = 1;
-	char buffer[128];
-	size_t bufsize = sizeof(buffer);
-	if (0 == sysctlbyname("kern.osrelease", buffer, &bufsize, NULL, 0)) {
-		preLeopardOS = (strcmp(buffer, "9") < 0); // kern.osrevision = 8.8.1 on Tiger, 9.x on Leopard
-	}
+    (void)properties;
 
-	return preLeopardOS;
+    return kIOReturnSuccess;
+}
+
+//Actual Transport Type
+OSString *IRKeyboardEmu::newTransportString(void) const
+{
+    return OSString::withCStringNoCopy("USB");
+}
+
+//Actual AppleIR Manufacturer String
+OSString *IRKeyboardEmu::newManufacturerString(void) const
+{
+    return OSString::withCStringNoCopy("640774n6");
+}
+
+//Emulator Product String
+OSString *IRKeyboardEmu::newProductString(void) const
+{
+    return OSString::withCStringNoCopy("IRKeyboardEmu");
+}
+
+//Actual AppleIR Vendor ID
+OSNumber *IRKeyboardEmu::newVendorIDNumber(void) const
+{
+    return OSNumber::withNumber(APPLE_VENDOR_ID, 16);
+}
+
+//Actual AppleIR Product ID
+OSNumber *IRKeyboardEmu::newProductIDNumber(void) const
+{
+    return OSNumber::withNumber(APPLE_USBIRD_ID, 16);
+}
+
+OSNumber *IRKeyboardEmu::newPrimaryUsageNumber(void) const
+{
+    return OSNumber::withNumber(kHIDUsage_Csmr_ConsumerControl, 32);
+}
+
+OSNumber * IRKeyboardEmu::newPrimaryUsagePageNumber(void) const
+{
+    return OSNumber::withNumber(kHIDPage_Consumer, 32);
 }
 
 bool IRKeyboardEmu::init(OSDictionary *properties)
 {
     bool res = super::init(properties);
-	me = this;
-	sysctl_register_oid(&sysctl__kern_sendIR);
 
- 	isOnLeopardOrBetter = !preLeopardOS();
+    if (res == true)
+    {
+        me = this;
+        sysctl_register_oid(&sysctl__kern_sendIR);
+    }
 	
 	return res;
 }
 
-void IRKeyboardEmu::free()
+void IRKeyboardEmu::free(void)
 { 
 	sysctl_unregister_oid(&sysctl__kern_sendIR);
+
 	super::free(); 
 }
 
-void IRKeyboardEmu::handleStop( IOService * provider )
-{ super::handleStop(provider); }
-
-bool IRKeyboardEmu::handleStart( IOService * provider )
+void IRKeyboardEmu::handleStop(IOService *provider)
 {
-    if ( super::handleStart(provider) == false )
-        return false;
-    return true;
+    super::handleStop(provider);
+}
+
+bool IRKeyboardEmu::handleStart(IOService *provider)
+{
+    return super::handleStart(provider);
 }
 
 //---------------------------------------------------------------------------
 // Report fake report descriptor and report data.
-
-IOReturn IRKeyboardEmu::newReportDescriptor(IOMemoryDescriptor ** desc) const
+//---------------------------------------------------------------------------
+IOReturn IRKeyboardEmu::newReportDescriptor(IOMemoryDescriptor **desc) const
 {
 	//The evil Apple Remote descriptor report (this was the hard part :) )
 	//Create buffer memory to hold our descriptor
+    if (desc == NULL)
+    {
+        return kIOReturnError;
+    }
 
-	if (isOnLeopardOrBetter)
-		*desc = IOBufferMemoryDescriptor::withBytes(leopard_report, sizeof(leopard_report), kIODirectionNone);
-	else
-		*desc = IOBufferMemoryDescriptor::withBytes(tiger_report, sizeof(tiger_report), kIODirectionNone);
+    *desc = IOBufferMemoryDescriptor::withBytes(report_descriptor,
+                                                sizeof(report_descriptor),
+                                                kIODirectionNone);
+
+    if (*desc == NULL)
+    {
+        return kIOReturnError;
+    }
 
 	return kIOReturnSuccess;
 }

@@ -1,4 +1,7 @@
-char tiger_report[] =
+#include <Availability.h>
+
+#if __MAC_OS_X_VERSION_MIN_REQUIRED <= 1040
+const unsignged char report_descriptor[] =
 {
 0x5, 0xc, /* USAGE_PAGE (Consumer) */
 0x9, 0x1, /* USAGE (Consumer Control) */
@@ -152,3 +155,4 @@ char tiger_report[] =
 
 0xc0 // END_COLLECTION 
 };
+#endif /* __MAC_OS_X_VERSION_MIN_REQUIRED <= 1040 */
