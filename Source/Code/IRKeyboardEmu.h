@@ -5,15 +5,35 @@
 	Purpose:	AppleIRController emulation via the keyboard and HIDUsagePage injection.
 */
 
-#include <IOKit/usb/IOUSBInterface.h>
+#include <Availability.h>
+
 #include <IOKit/hid/IOHIDDevice.h>
+
 #include <IOKit/IOBufferMemoryDescriptor.h>
 #include <IOKit/IOLib.h>
 #include <IOKit/IOWorkLoop.h>
 #include <IOKit/IOTimerEventSource.h>
+
 #include <sys/kern_control.h>
 
-typedef enum {
+#ifndef APPLE_VENDOR_ID
+#define APPLE_VENDOR_ID 0x05AC
+#endif /* APPLE_VENDOR_ID */
+
+#ifndef APPLE_USBIRD_ID
+#define APPLE_USBIRD_ID 0x8240
+#endif /* APPLE_USBIR_ID */
+
+#ifndef MENU_PRESS_BITS
+#define MENU_PRESS_BITS 6
+#endif /* MENU_PRESS_BITS */
+
+#ifndef APPLE_KEXT_OVERRIDE
+#define APPLE_KEXT_OVERRIDE
+#endif /* APPLE_KEXT_OVERRIDE */
+
+typedef enum _IRKeyboardKey
+{
 	UpKey = 0,
 	DownKey,
 	MenuKey,
@@ -39,27 +59,25 @@ typedef enum {
 class IRKeyboardEmu : public IOHIDDevice
 {
     OSDeclareDefaultStructors(IRKeyboardEmu)
-private:
+
 public:
-    void issueFakeReport_leopard(int inputCode);
-    void issueFakeReport_tiger(int inputCode);
+    virtual void issueFakeReport(int inputCode);
 
-	char *reportDescriptor_leopard();
+    virtual void free(void) APPLE_KEXT_OVERRIDE;
+	virtual bool init(OSDictionary* properties) APPLE_KEXT_OVERRIDE;
 
-    virtual void free();
-	virtual bool init(OSDictionary* properties);
+    virtual bool handleStart(IOService *provider) APPLE_KEXT_OVERRIDE;
+    virtual void handleStop(IOService *provider) APPLE_KEXT_OVERRIDE;
 
-    virtual bool handleStart(IOService *provider);
-    virtual void handleStop(IOService *provider);
+	virtual IOReturn setProperties(OSObject *properties) APPLE_KEXT_OVERRIDE;
+    virtual IOReturn newReportDescriptor(IOMemoryDescriptor **descriptor) const APPLE_KEXT_OVERRIDE;
 
-	void readInput(void);
-	virtual IOReturn setProperties(OSObject *properties);
-    virtual IOReturn newReportDescriptor(IOMemoryDescriptor **descriptor) const;
-    virtual OSString * newTransportString() const;
-    virtual OSString * newManufacturerString() const;
-    virtual OSString * newProductString() const;
-    virtual OSNumber * newVendorIDNumber() const;
-    virtual OSNumber * newProductIDNumber() const;
-    virtual OSNumber * newPrimaryUsageNumber() const;
-    virtual OSNumber * newPrimaryUsagePageNumber() const;
+    virtual OSString *newTransportString(void) const APPLE_KEXT_OVERRIDE;
+    virtual OSString *newManufacturerString(void) const APPLE_KEXT_OVERRIDE;
+    virtual OSString *newProductString(void) const APPLE_KEXT_OVERRIDE;
+
+    virtual OSNumber *newVendorIDNumber(void) const APPLE_KEXT_OVERRIDE;
+    virtual OSNumber *newProductIDNumber(void) const APPLE_KEXT_OVERRIDE;
+    virtual OSNumber *newPrimaryUsageNumber(void) const APPLE_KEXT_OVERRIDE;
+    virtual OSNumber *newPrimaryUsagePageNumber(void) const APPLE_KEXT_OVERRIDE;
 };

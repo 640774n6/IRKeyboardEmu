@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,11 +13,10 @@
 		C11298C515366444008BB88F /* IRKeyboardEmu.h in Headers */ = {isa = PBXBuildFile; fileRef = C11298B915366443008BB88F /* IRKeyboardEmu.h */; };
 		C11298C615366444008BB88F /* ReportDescriptor-Leopard.h in Headers */ = {isa = PBXBuildFile; fileRef = C11298BA15366443008BB88F /* ReportDescriptor-Leopard.h */; };
 		C11298C715366444008BB88F /* ReportDescriptor-Tiger.h in Headers */ = {isa = PBXBuildFile; fileRef = C11298BB15366443008BB88F /* ReportDescriptor-Tiger.h */; };
-		C11298C815366444008BB88F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C11298BE15366443008BB88F /* InfoPlist.strings */; };
-		C11298CC1536648F008BB88F /* Headers.pch in Headers */ = {isa = PBXBuildFile; fileRef = C11298CB1536648F008BB88F /* Headers.pch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB5D8F75243E43FB00A04537 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C112989B15366259008BB88F /* IRKeyboardEmu.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IRKeyboardEmu.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		C112989F15366259008BB88F /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
 		C11298B615366443008BB88F /* IRKeyboardEmu-Leopard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "IRKeyboardEmu-Leopard.cpp"; sourceTree = "<group>"; };
@@ -26,9 +25,6 @@
 		C11298B915366443008BB88F /* IRKeyboardEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRKeyboardEmu.h; sourceTree = "<group>"; };
 		C11298BA15366443008BB88F /* ReportDescriptor-Leopard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReportDescriptor-Leopard.h"; sourceTree = "<group>"; };
 		C11298BB15366443008BB88F /* ReportDescriptor-Tiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReportDescriptor-Tiger.h"; sourceTree = "<group>"; };
-		C11298BF15366443008BB88F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C11298C015366443008BB88F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C11298CB1536648F008BB88F /* Headers.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Headers.pch; sourceTree = "<group>"; };
 		C11298D1153666F2008BB88F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -87,7 +83,6 @@
 				C11298B915366443008BB88F /* IRKeyboardEmu.h */,
 				C11298BA15366443008BB88F /* ReportDescriptor-Leopard.h */,
 				C11298BB15366443008BB88F /* ReportDescriptor-Tiger.h */,
-				C11298CA1536648F008BB88F /* Support */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -95,26 +90,9 @@
 		C11298BC15366443008BB88F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C11298BD15366443008BB88F /* Text */,
+				AB5D8F75243E43FB00A04537 /* Info.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		C11298BD15366443008BB88F /* Text */ = {
-			isa = PBXGroup;
-			children = (
-				C11298BE15366443008BB88F /* InfoPlist.strings */,
-				C11298C015366443008BB88F /* Info.plist */,
-			);
-			path = Text;
-			sourceTree = "<group>";
-		};
-		C11298CA1536648F008BB88F /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				C11298CB1536648F008BB88F /* Headers.pch */,
-			);
-			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +105,6 @@
 				C11298C515366444008BB88F /* IRKeyboardEmu.h in Headers */,
 				C11298C615366444008BB88F /* ReportDescriptor-Leopard.h in Headers */,
 				C11298C715366444008BB88F /* ReportDescriptor-Tiger.h in Headers */,
-				C11298CC1536648F008BB88F /* Headers.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,15 +136,15 @@
 		C112989015366259008BB88F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 1130;
 			};
 			buildConfigurationList = C112989315366259008BB88F /* Build configuration list for PBXProject "IRKeyboardEmu" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				English,
+				Base,
 			);
 			mainGroup = C112988E15366259008BB88F;
 			productRefGroup = C112989C15366259008BB88F /* Products */;
@@ -184,7 +161,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C11298C815366444008BB88F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,27 +189,34 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		C11298BE15366443008BB88F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C11298BF15366443008BB88F /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		C11298AA1536625A008BB88F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -244,8 +227,13 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				GENERATE_PKGINFO_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -255,17 +243,39 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				GENERATE_PKGINFO_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -273,17 +283,25 @@
 		C11298AD1536625A008BB88F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CURRENT_PROJECT_VERSION = 0.5;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10.15;
+				DEVELOPMENT_TEAM = YZAQ856TTM;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Source/Code/Support/Headers.pch;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = Source/Resources/Text/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				INFOPLIST_FILE = Source/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 2.0;
 				MODULE_NAME = com.bholland.driver.IRKeyboardEmu;
 				MODULE_VERSION = 0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bholland.driver.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -291,17 +309,25 @@
 		C11298AE1536625A008BB88F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CURRENT_PROJECT_VERSION = 0.5;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10.15;
+				DEVELOPMENT_TEAM = YZAQ856TTM;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Source/Code/Support/Headers.pch;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = Source/Resources/Text/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				INFOPLIST_FILE = Source/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 2.0;
 				MODULE_NAME = com.bholland.driver.IRKeyboardEmu;
 				MODULE_VERSION = 0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bholland.driver.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Release;

@@ -7,10 +7,11 @@
 
 #include "IRKeyboardEmu.h"
 
+#if __MAC_OS_X_VERSION_MIN_REQUIRED > 1040
 /* 10.5+ */
-void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
+void IRKeyboardEmu::issueFakeReport(int keyCode)
 {
-	IOMemoryDescriptor *mem;
+	IOMemoryDescriptor *mem = NULL;
 	char (*keyPress)[2];
 	int bits = 8;
 
@@ -35,8 +36,9 @@ void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
 	
 	/* Menu-hold, pressed and released */
 	//WRONG
-#undef MENU_PRESS_BITS
+#undef  MENU_PRESS_BITS
 #define MENU_PRESS_BITS 6
+
 	char menu_hold[MENU_PRESS_BITS][2] = //31_19_18_31_19_18_
 	{
 		/* Press */
@@ -157,8 +159,11 @@ void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
 		{ 0x04, 0x00 }
 	};
 #endif
-	
+
+#ifndef UP_HALF_BITS
 #define UP_HALF_BITS 5
+#endif
+
 	char up_pressed[UP_HALF_BITS][2] = //31_29_28_19_18_ 
 	{
 		{ 0x1E, 0x00 },
@@ -174,8 +179,11 @@ void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
 	
 	/* Create 'up', which is up_pressed followed by up_released */
 	char up[UP_HALF_BITS*2][2];
-	for (int i = 0; i < UP_HALF_BITS; i++) {
-		for (int j = 0; j < 2; j++) {
+
+	for (int i = 0; i < UP_HALF_BITS; i++)
+    {
+		for (int j = 0; j < 2; j++)
+        {
 			up[i][j] = up_pressed[i][j];
 			up[i+UP_HALF_BITS][j] = up_released[i][j];
 		}
@@ -187,6 +195,7 @@ void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
 		{ 0x1d, 0x01 }, { 0x1b, 0x01 }, { 0x12, 0x01 },
 		{ 0x11, 0x00 } 
 	};
+
 	char down_released[5][2] = //31_30_28_19_18_
 	{		
 		{ 0x1E, 0x00 },
@@ -196,8 +205,11 @@ void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
 	
 	/* Create 'down', which is down_pressed followed by down_released */
 	char down[10][2];
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 2; j++) {
+
+	for (int i = 0; i < 5; i++)
+    {
+		for (int j = 0; j < 2; j++)
+        {
 			down[i][j] = down_pressed[i][j];
 			down[i+5][j] = down_released[i][j];
 		}
@@ -209,77 +221,97 @@ void IRKeyboardEmu::issueFakeReport_leopard(int keyCode)
 			keyPress = up;
 			bits = UP_HALF_BITS*2; 
 			break;
+
 		case PressedUp:
 			keyPress = up_pressed;
 			bits = UP_HALF_BITS;
 			break;
+
 		case ReleasedUp:
 			keyPress = up_released;
 			bits = UP_HALF_BITS;
 			break;
+
 		case DownKey:
 			keyPress = down; //Point to down command report
 			bits = 10;
 			break;
+
 		case PressedDown:
 			keyPress = down_pressed;
 			bits = 5;
 			break;
+
 		case ReleasedDown:
 			keyPress = down_released;
 			bits = 5;
 			break;
+
 		case MenuKey:
 			keyPress = menu; //Point to menu command report
 			bits = 8;
 			break;
+
 		case PressedMenu:
 			keyPress = menu_hold;
 			bits = MENU_PRESS_BITS;
 			break;
+
 		case ReleasedMenu:
 			/* Don't need to do anything; PressedMenu did menu-held-pressed and menu-held-released */
 			keyPress = NULL; 
 			break;
+
 		case PlayKey:
 			keyPress = play; //Point to play command report
 			bits = 8;
 			break;
+
 		case RightKey:
 			keyPress = right; //Point to right command report
 			break;
+
 		case PressedRight:
 			keyPress = right_pressed;
 			bits = 5;
 			break;
+
 		case ReleasedRight:
 			keyPress = right_released;
 			bits = 5;			
 			break;
+
 		case LeftKey:
 			keyPress = left; //Point to left command report
 			break;
+
 		case PressedLeft:
 			keyPress = left_pressed;
 			bits = 5;
 			break;
+
 		case ReleasedLeft:
 			keyPress = left_released;
 			bits = 5;			
 			break;
+
 		default:
 			keyPress = NULL; //Oops! Somehow we got an invalid option. Bail!
 			break;
 	}
 	
-	if(keyPress != NULL) //If everything went ok create Memory Descriptors
+	if (keyPress != NULL) //If everything went ok create Memory Descriptors
 	{
 		for(int i = 0; i < bits; i++)
 		{
 			mem = IOMemoryDescriptor::withAddress(keyPress[i], sizeof(keyPress[i]), kIODirectionNone);
-			handleReport(mem); //Send command report to HID System
-			mem->release(); //Free memory
+            if (mem != NULL)
+            {
+                handleReport(mem); //Send command report to HID System
+                mem->release(); //Free memory
+            }
 		}
 		
 	}
 }
+#endif /* __MAC_OS_X_VERSION_MIN_REQUIRED > 1040 */
